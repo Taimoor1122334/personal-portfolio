@@ -103,12 +103,27 @@ export default function WorkSection() {
     });
   };
 
-  const handleRowLeave = () => {
+  /** Avoid clearing hover when moving directly between rows — prevents flicker + wrong image (fallback to project 1). */
+  const handleRowLeave = (e) => {
+    const to = e.relatedTarget;
+    if (to && typeof to.closest === 'function' && to.closest('.ws-list .ws-row')) {
+      return;
+    }
     setHoveredIdx(null);
     gsap.to(cursorImgRef.current, {
       opacity: 0,
       scale: 0.85,
       duration: 0.3,
+      ease: 'power3.in',
+    });
+  };
+
+  const handleSectionLeave = () => {
+    setHoveredIdx(null);
+    gsap.to(cursorImgRef.current, {
+      opacity: 0,
+      scale: 0.85,
+      duration: 0.25,
       ease: 'power3.in',
     });
   };
@@ -122,14 +137,24 @@ export default function WorkSection() {
   };
 
   return (
-    <section className="ws-section" ref={sectionRef} onMouseMove={handleMouseMove}>
+    <section
+      className="ws-section"
+      ref={sectionRef}
+      id="work"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleSectionLeave}
+    >
 
       {/* Floating cursor image — follows mouse */}
       <div className="ws-cursor-img" ref={cursorImgRef}>
-        <img
-          src={hoveredIdx !== null ? projects[hoveredIdx].image : projects[0].image}
-          alt="project preview"
-        />
+        {hoveredIdx !== null && (
+          <img
+            key={projects[hoveredIdx].image}
+            src={projects[hoveredIdx].image}
+            alt=""
+            draggable={false}
+          />
+        )}
       </div>
 
       <div className="ws-inner">
@@ -156,7 +181,7 @@ export default function WorkSection() {
               key={p.id}
               className={`ws-row ${hoveredIdx === idx ? 'ws-row--active' : ''} ${hoveredIdx !== null && hoveredIdx !== idx ? 'ws-row--dim' : ''}`}
               onMouseEnter={() => handleRowEnter(idx)}
-              onMouseLeave={handleRowLeave}
+              onMouseLeave={(e) => handleRowLeave(e)}
               onClick={(e) => handleRowClick(e, idx)}
             >
               <div className="ws-row-left">
@@ -186,7 +211,7 @@ export default function WorkSection() {
         {/* ── Footer CTA ──────────────────────────────────────────── */}
         <div className="ws-footer">
           <p className="ws-footer-text">Have a project in mind?</p>
-          <button className="ws-footer-btn">Start a conversation →</button>
+          <a className="ws-footer-btn" href="#contact">Start a conversation →</a>
         </div>
 
       </div>

@@ -73,16 +73,16 @@ export default function Nav() {
         <div className="menu-overlay" ref={overlayRef}>
           <ul className="menu-links">
             <li className="menu-link-item">
-              <a className="menu-link"><span className="num">01</span>Home</a>
+              <a className="menu-link" href="#home" onClick={() => setIsOpen(false)}><span className="num">01</span>Home</a>
             </li>
             <li className="menu-link-item">
-              <a className="menu-link"><span className="num">02</span>Work</a>
+              <a className="menu-link" href="#work" onClick={() => setIsOpen(false)}><span className="num">02</span>Work</a>
             </li>
             <li className="menu-link-item">
-              <a className="menu-link"><span className="num">03</span>Studio</a>
+              <a className="menu-link" href="#studio" onClick={() => setIsOpen(false)}><span className="num">03</span>Studio</a>
             </li>
             <li className="menu-link-item">
-              <a className="menu-link"><span className="num">04</span>Contact</a>
+              <a className="menu-link" href="#contact" onClick={() => setIsOpen(false)}><span className="num">04</span>Contact</a>
             </li>
           </ul>
 

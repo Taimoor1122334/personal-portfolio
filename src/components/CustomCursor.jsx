@@ -28,14 +28,29 @@ export default function CustomCursor() {
     // ── State: Default ───────────────────────────────────────
     const resetCursor = () => {
       gsap.to(dot, { scale: 1, opacity: 1, background: 'var(--accent)', duration: 0.25, ease: 'power2.out' });
-      gsap.to(ring, { scale: 1, opacity: 1, borderColor: 'rgba(245,244,240,0.5)', width: '36px', height: '36px', duration: 0.3, ease: 'power2.out' });
+      gsap.to(ring, {
+        scale: 1,
+        opacity: 1,
+        borderColor: 'rgba(245,244,240,0.5)',
+        width: '36px',
+        height: '36px',
+        mixBlendMode: 'difference',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
       gsap.to(label, { opacity: 0, scale: 0.8, duration: 0.2 });
     };
 
-    // ── State: Hover on links/buttons ────────────────────────
+    // ── State: Hover on links/buttons/inputs (ring: normal blend — avoids “broken” look on forms)
     const onEnterInteractive = () => {
       gsap.to(dot, { scale: 1.5, background: 'var(--white)', duration: 0.25, ease: 'power2.out' });
-      gsap.to(ring, { scale: 1.6, borderColor: 'var(--accent)', duration: 0.3, ease: 'power2.out' });
+      gsap.to(ring, {
+        scale: 1.6,
+        borderColor: 'var(--accent)',
+        mixBlendMode: 'normal',
+        duration: 0.3,
+        ease: 'power2.out',
+      });
       gsap.to(label, { opacity: 0, duration: 0.15 });
     };
 
@@ -67,8 +82,8 @@ export default function CustomCursor() {
 
     // ── Attach listeners ──────────────────────────────────────
     const attach = () => {
-      // Interactive (links, buttons) — but NOT project rows
-      document.querySelectorAll('a, button, input, label, select').forEach(el => {
+      // Interactive — includes textarea; skip children of project rows (those use VIEW cursor)
+      document.querySelectorAll('a, button, input, textarea, label, select, [role="button"]').forEach((el) => {
         if (!el.closest('.ws-row')) {
           el.removeEventListener('mouseenter', onEnterInteractive);
           el.removeEventListener('mouseleave', onLeaveInteractive);

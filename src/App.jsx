@@ -5,6 +5,7 @@ import Loader from './components/Loader'
 import WorkSection from './sections/WorkSection'
 import CustomCursor from './components/CustomCursor'
 import StudioSection from './sections/StudioSection'
+import ContactSection from './sections/ContactSection'
 
 function App() {
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -16,6 +17,7 @@ function App() {
       <HeroSection hasLoaded={hasLoaded} />
       <WorkSection />
       <StudioSection />
+      <ContactSection />
     </>
   )
 }

@@ -181,7 +181,7 @@ export default function HeroSection({ hasLoaded }) {
 
   return (
     <>
-      <div className="hero-root" ref={container}>
+      <div className="hero-root" ref={container} id="home">
         <WaveBackground />
 
         {/* NAV */}
