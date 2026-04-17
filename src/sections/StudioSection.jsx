@@ -180,7 +180,7 @@ export default function StudioSection() {
             </div>
           </div>
           <div className="st-img-caption">
-            <span>chk.stepan</span>
+            <span>M Taimoor Irshad</span>
             <span className="st-img-caption-role">Designer & Developer</span>
           </div>
         </div>
